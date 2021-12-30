@@ -4,7 +4,7 @@
 # swap ether for weth or any other wrapped token
 
 from scripts.helpers import get_account
-from brownie import network, config
+from brownie import network, config, interface
 from scripts.get_weth import get_weth
 
 
@@ -23,6 +23,12 @@ def main():
 def get_lending_pool():
     # to get the lending pool, which is a contract
     # we need the abi and contract address
+    
+    lending_pool_address_provider = interface.ILendingPoolAddressProvider(
+        config["networks"][network.show_active()]["lending_pool_address_provider"]
+    )
+    # able to use the getLendingPool functions as the address is returned
+    lending_pool_address = lending_pool_address_provider.getLendingPool()
     
     
     
