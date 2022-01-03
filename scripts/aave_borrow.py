@@ -28,7 +28,8 @@ def main():
     tx.wait(1)
     print("DEPOSIT COMPLETE")
     
-    borrow_data =  get_borrow_data()
+    # return the borrowed eth available and total debt in ether
+    borrow_ether, total_debt  =  get_borrow_data(lending_pool, account)
     
     
 # We need a function to approve sending out the ERC20 tokens
@@ -74,8 +75,10 @@ def get_borrow_data(lending_pool, account):
     total_debt_eth = Web3.fromWei(total_debt_eth, "ether")
     
     print(f'You gots {avail_borrow_eth} avaialbel to borrow eth depositied')
-    print(f'You gots {total_collaterallending} available collateral in ether to lend depositied')
+    print(f'You gots {total_collaterallending} available collateral in ether  to lend depositied')
     print(f'You gots {total_debt_eth} debt in ether depositied')
+    
+    return(float(avail_borrow_eth), float(total_debt_eth))
     
     
     
