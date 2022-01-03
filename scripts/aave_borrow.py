@@ -28,6 +28,9 @@ def main():
     tx.wait(1)
     print("DEPOSIT COMPLETE")
     
+    borrow_data =  get_borrow_data()
+    
+    
 # We need a function to approve sending out the ERC20 tokens
 def approve_erc(amount, spender, erc_address, account):
     print("APPROVING ERC TOKEN")
@@ -51,11 +54,28 @@ def get_lending_pool():
     # get lending pool abi
     
     lending_pool = interface.ILendingPool(lending_pool_address)
+    
+    # now we can interact with the lending pool for aave cos we return the lending pool
     return lending_pool
-    # now we can interact with the lending pool for aave
-
-
-    
     
 
+
+# we are using the getAccountData function from the lendingpool
+# this function takes an address(lending pool address..I think) & a user (account)
+# returns 6 types of data 
+
+def get_borrow_data(lending_pool, account):
+    (total_collaterallending, total_debt_eth, avail_borrow_eth,
+     current_liquidation_threshold, ltv, health_factor) = lending_pool.getUserAccountData(account.address)
+    
+    # it will return sum in weth so need to convert to eth
+    avail_borrow_eth = Web3.fromWei(avail_borrow_eth, "ether")
+    total_collaterallending = Web3.fromWei(total_collaterallending, "ether")
+    total_debt_eth = Web3.fromWei(total_debt_eth, "ether")
+    
+    print(f'You gots {avail_borrow_eth} avaialbel to borrow eth depositied')
+    print(f'You gots {total_collaterallending} available collateral in ether to lend depositied')
+    print(f'You gots {total_debt_eth} debt in ether depositied')
+    
+    
     
