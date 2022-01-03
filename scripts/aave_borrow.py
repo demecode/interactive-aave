@@ -31,6 +31,13 @@ def main():
     # return the borrowed eth available and total debt in ether
     borrow_ether, total_debt  =  get_borrow_data(lending_pool, account)
     
+    print('Lets borrow some DAI....')
+    # 2. - lets get the price for dai and eth using chainlink pricefeed 
+    
+    dai_to_eth_price = get_asset_price(dai_to_eth_price)
+    
+def get_asset_price(price_feed_address):
+    pass
     
 # We need a function to approve sending out the ERC20 tokens
 def approve_erc(amount, spender, erc_address, account):
