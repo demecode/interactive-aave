@@ -1,5 +1,6 @@
 
-from scripts.helpers import get_account
+from toolz.itertoolz import get
+from scripts.helpers import get_account, accounts
 from brownie import interface, network, config
 
 def get_weth():

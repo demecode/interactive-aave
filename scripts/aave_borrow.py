@@ -64,7 +64,7 @@ def main():
     
     # lets repay the debt
     
-    repay_all(AMOUNT, lending_pool, account)
+    # repay_all(AMOUNT, lending_pool, account)
     print("TOTAL DEBT REPAID")
     
     
