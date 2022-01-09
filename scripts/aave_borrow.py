@@ -62,8 +62,33 @@ def main():
     # this should return the new lending pool data if the borrowing is successful
     get_borrow_data(lending_pool, account)
     
+    # lets repay the debt
+    
+    repay_all(AMOUNT, lending_pool, account)
+    print("TOTAL DEBT REPAID")
     
     
+    
+    
+def repay_all(amount, lending_pool, account):
+
+    # we need to first approve the token
+    approve_erc(
+        Web3.toWei(amount, "ether"), 
+        lending_pool, config["networks"][network.show_active()]["dai_token"],
+        account
+        )
+    
+    # once approve, we can use the dai we got to pay back
+    
+    repay_tx = lending_pool.repay(config["networks"][network.show_active()]["dai_token"],
+                                  amount,
+                                  1,
+                                  account.address,
+                                  {'from': account}
+                                  )
+    repay_tx.wait(1)
+    print("DEBT REPAID")
     
     
     
